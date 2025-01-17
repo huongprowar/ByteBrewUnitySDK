@@ -7,7 +7,7 @@ namespace ByteBrewSDK
 {
     public class ByteBrewAndroidHandler : MonoBehaviour
     {
-#if UNITY_ANDROID && !(UNITY_EDITOR)
+// #if UNITY_ANDROID && !(UNITY_EDITOR)
         private static AndroidJavaObject byteBrewHandler;
         private static AndroidJavaObject byteBrewListener;
         private static AndroidJavaObject byteBrewPushNotifications;
@@ -24,7 +24,10 @@ namespace ByteBrewSDK
             var application = playerActivity.Call<AndroidJavaObject>("getApplication");
             byteBrewListener.CallStatic("CreateListeners", application);
             AndroidJavaObject context = playerActivity.Call<AndroidJavaObject>("getApplicationContext");
-            byteBrewHandler.Call("InitializeByteBrew", gameID, gameKey, unityVersion, buildVerison, bundleID, context);
+            playerActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
+            {
+                byteBrewHandler.Call("InitializeByteBrew", gameID, gameKey, unityVersion, buildVerison, bundleID, context);
+            }));
 
             initializationCalled = true;
             return true;
@@ -118,9 +121,9 @@ namespace ByteBrewSDK
 
         public static string GetCurrentUserID()
         {
-            if(!initializationCalled) 
+            if(!initializationCalled)
                 return "";
-            
+
             return byteBrewHandler.CallStatic<string>("GetUserID");
         }
 
@@ -210,5 +213,3 @@ namespace ByteBrewSDK
 
 
 }
-
-
