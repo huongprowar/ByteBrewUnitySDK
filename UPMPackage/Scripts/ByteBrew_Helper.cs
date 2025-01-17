@@ -28,8 +28,8 @@ namespace ByteBrewSDK
             {
                 Debug.LogError("ByteBrew Error: Settings are not setup corretcly, your iOS SDK Key or GameID is empty.");
                 return false;
-            } 
-            
+            }
+
             if (!string.IsNullOrEmpty(settings.iosSDKKey) && !string.IsNullOrEmpty(settings.iosGameID))
             {
                 gameKey = settings.iosSDKKey;
@@ -43,12 +43,14 @@ namespace ByteBrewSDK
             {
                 Debug.LogError("ByteBrew Error: Settings are not setup corretcly, your Android SDK Key or GameID is empty.");
                 return false;
-            } 
-            
+            }
+
             if (!string.IsNullOrEmpty(settings.androidSDKKey) && !string.IsNullOrEmpty(settings.androidGameID))
             {
                 gameKey = settings.androidSDKKey;
                 gameID = settings.androidGameID;
+                Debug.Log("Ready to initialize byte brew plugin");
+
                 return ByteBrewAndroidHandler.InitializePlugin(unityVersion, buildVersion, bundleID, gameID, gameKey);
             }
 #endif
@@ -57,8 +59,8 @@ namespace ByteBrewSDK
             if (string.IsNullOrEmpty(settings.webSDKKey) || string.IsNullOrEmpty(settings.webGameID)) {
                 Debug.LogError("ByteBrew Error: Settings are not setup corretcly, your Web SDK Key or GameID is empty.");
                 return false;
-            } 
-            
+            }
+
             if (!string.IsNullOrEmpty(settings.webSDKKey) && !string.IsNullOrEmpty(settings.webGameID)) {
                 gameKey = settings.webSDKKey;
                 gameID = settings.webGameID;
@@ -86,7 +88,7 @@ namespace ByteBrewSDK
         /// </summary>
         /// <param name="key">Name of the key</param>
         /// <param name="value">String value</param>
-        public static void AddCustomDataPair(string key, string pair) 
+        public static void AddCustomDataPair(string key, string pair)
         {
 #if UNITY_ANDROID || UNITY_IPHONE
             var data = new Dictionary<string, string>();
@@ -113,7 +115,7 @@ namespace ByteBrewSDK
         /// </summary>
         /// <param name="key">Name of the key</param>
         /// <param name="value">Double value</param>
-        public static void AddCustomDataPair(string key, double pair) 
+        public static void AddCustomDataPair(string key, double pair)
         {
 #if UNITY_ANDROID || UNITY_IPHONE
             var data = new Dictionary<string, string>();
@@ -140,7 +142,7 @@ namespace ByteBrewSDK
         /// </summary>
         /// <param name="key">Name of the key</param>
         /// <param name="value">Int value</param>
-        public static void AddCustomDataPair(string key, int pair) 
+        public static void AddCustomDataPair(string key, int pair)
         {
 #if UNITY_ANDROID || UNITY_IPHONE
             var data = new Dictionary<string, string>();
@@ -167,7 +169,7 @@ namespace ByteBrewSDK
         /// </summary>
         /// <param name="key">Name of the key</param>
         /// <param name="value">Boolean value</param>
-        public static void AddCustomDataPair(string key, bool pair) 
+        public static void AddCustomDataPair(string key, bool pair)
         {
 #if UNITY_ANDROID || UNITY_IPHONE
             var data = new Dictionary<string, string>();
@@ -844,4 +846,3 @@ namespace ByteBrewSDK
 
     }
 }
-

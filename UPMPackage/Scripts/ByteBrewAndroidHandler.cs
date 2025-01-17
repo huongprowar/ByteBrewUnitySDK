@@ -17,6 +17,7 @@ namespace ByteBrewSDK
 
         public static bool InitializePlugin(string unityVersion, string buildVerison, string bundleID, string gameID, string gameKey)
         {
+Debug.Log("Start initialize byte brew plugin");
             byteBrewHandler = new AndroidJavaObject("com.bytebrew.bytebrewlibrary.ByteBrewHandler");
             byteBrewListener = new AndroidJavaObject("com.bytebrew.bytebrewlibrary.ByteBrewListener");
             AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
