@@ -7,7 +7,7 @@ namespace ByteBrewSDK
 {
     public class ByteBrewAndroidHandler : MonoBehaviour
     {
-// #if UNITY_ANDROID && !(UNITY_EDITOR)
+#if UNITY_ANDROID && !(UNITY_EDITOR)
         private static AndroidJavaObject byteBrewHandler;
         private static AndroidJavaObject byteBrewListener;
         private static AndroidJavaObject byteBrewPushNotifications;
