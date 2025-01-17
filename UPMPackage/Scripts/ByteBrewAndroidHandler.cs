@@ -18,8 +18,7 @@ namespace ByteBrewSDK
         public static bool InitializePlugin(string unityVersion, string buildVerison, string bundleID, string gameID, string gameKey)
         {
 Debug.Log("Start initialize byte brew plugin");
-            byteBrewHandler = new AndroidJavaObject("com.bytebrew.bytebrewlibrary.ByteBrewHandler");
-            byteBrewListener = new AndroidJavaObject("com.bytebrew.bytebrewlibrary.ByteBrewListener");
+
             AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             playerActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
             Debug.Log("Start run on ui thread");
@@ -27,6 +26,8 @@ Debug.Log("Start initialize byte brew plugin");
             playerActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
             {
             var application = playerActivity.Call<AndroidJavaObject>("getApplication");
+            byteBrewHandler  = new AndroidJavaObject("com.bytebrew.bytebrewlibrary.ByteBrewHandler");
+            byteBrewListener = new AndroidJavaObject("com.bytebrew.bytebrewlibrary.ByteBrewListener");
                 Debug.Log("create listener");
                 byteBrewListener.CallStatic("CreateListeners", application);
                 AndroidJavaObject context = playerActivity.Call<AndroidJavaObject>("getApplicationContext");
