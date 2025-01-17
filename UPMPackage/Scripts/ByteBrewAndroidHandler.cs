@@ -23,10 +23,14 @@ Debug.Log("Start initialize byte brew plugin");
             AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             playerActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
             var application = playerActivity.Call<AndroidJavaObject>("getApplication");
-            byteBrewListener.CallStatic("CreateListeners", application);
-            AndroidJavaObject context = playerActivity.Call<AndroidJavaObject>("getApplicationContext");
+            Debug.Log("Start run on ui thread");
+
             playerActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
             {
+                Debug.Log("create listener");
+                byteBrewListener.CallStatic("CreateListeners", application);
+                AndroidJavaObject context = playerActivity.Call<AndroidJavaObject>("getApplicationContext");
+                Debug.Log("Real initialize");
                 byteBrewHandler.Call("InitializeByteBrew", gameID, gameKey, unityVersion, buildVerison, bundleID, context);
             }));
 
